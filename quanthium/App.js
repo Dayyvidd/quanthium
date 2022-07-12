@@ -11,7 +11,7 @@ export default function App() {
         <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
             <TouchableWithoutFeedback style={{flex: 1}} onPress={Keyboard.dismiss}>
                 <View>
-                    <ImageBackground source={require('./assets/finance_pattern.jpg')} style={styles.backgroundImg}>
+                    <ImageBackground source={require('./assets/login-back.jpg')} style={styles.backgroundImg}>
                         <View style={styles.mainView}>
 
                             <View style={styles.titleContainer}>
@@ -21,7 +21,8 @@ export default function App() {
                                 <TextInput style={styles.input} placeholder={"Email"}></TextInput>
                             </View>
                             <View style={styles.inputContainer}>
-                                <TextInput secureTextEntry={true} style={styles.input} placeholder={"Password"}></TextInput>
+                                <TextInput secureTextEntry={true} style={styles.input}
+                                           placeholder={"Password"}></TextInput>
                             </View>
                             <View style={styles.buttonContainer}>
                                 <TouchableOpacity style={styles.button}>
@@ -47,27 +48,25 @@ const styles = StyleSheet.create({
         resizeMode: 'repeat',
         width: '100%',
         height: '100%',
+        opacity: .95,
     },
     mainView: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#e5e5e5',
-        opacity: 0.95,
     },
     title: {
         width: '100%',
         fontSize: 55,
         fontWeight: 'bold',
         fontFamily: 'Helvetica',
-        color: '#3f37c9'
+        color: '#49357e'
     },
     titleContainer: {
-
         padding: 20,
-        marginBottom: 20,
-        //borderColor: 'black',
-        //borderWidth: 10,
+        marginBottom: 70,
+        // borderColor: 'black',
+        // borderWidth: 10,
     },
     input: {
         width: '100%',
@@ -86,12 +85,12 @@ const styles = StyleSheet.create({
         padding: 15,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#3d3195',
+        backgroundColor: '#49357e',
         borderRadius: 10,
     },
     buttonOutline: {
         backgroundColor: 'white',
-        borderColor: '#3d3195',
+        borderColor: '#49357e',
         borderWidth: 2,
     },
     buttonText: {
@@ -100,7 +99,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     buttonOutlineText: {
-        color: '#3d3195',
+        color: '#49357e',
         fontWeight: '700',
         fontSize: 16,
     },
