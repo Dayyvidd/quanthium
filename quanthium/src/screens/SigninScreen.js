@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React from 'react';
 import {
     View,
@@ -10,18 +11,42 @@ import {
 } from 'react-native';
 
 const SigninScreen = ({ navigation }) => {
+=======
+import React, { useState, useContext } from 'react';
+import {Context} from '../context/AuthContext';
+
+import {
+    ImageBackground,
+    Keyboard, KeyboardAvoidingView, StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View
+} from "react-native";
+
+const SigninScreen = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const { state, signup } = useContext(Context);
+>>>>>>> Stashed changes
 
     return (
         <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
             <TouchableWithoutFeedback style={{flex: 1}} onPress={Keyboard.dismiss}>
                 <View>
+<<<<<<< Updated upstream
                     <ImageBackground source={require('../../assets/login-back.jpg')} style={styles.backgroundImg}>
+=======
+                    <ImageBackground source={require('quanthium/assets/login-back.jpg')} style={styles.backgroundImg}>
+>>>>>>> Stashed changes
                         <View style={styles.mainView}>
 
                             <View style={styles.titleContainer}>
                                 <Text style={styles.title}>Quanthium</Text>
                             </View>
                             <View style={styles.inputContainer}>
+<<<<<<< Updated upstream
                                 <TextInput style={styles.input} placeholder={"Email"}></TextInput>
                             </View>
                             <View style={styles.inputContainer}>
@@ -32,6 +57,33 @@ const SigninScreen = ({ navigation }) => {
                                 {/*Edit this to check for user authentication*/}
                                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('homeFlow')}>
                                     <Text style={styles.buttonText}>Login</Text>
+=======
+                                <TextInput
+                                    style={styles.input}
+                                    value={email}
+                                    placeholder={"Email"}
+                                    onChangeText={setEmail}
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                >
+                                </TextInput>
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    secureTextEntry={true}
+                                    value={password}
+                                    style={styles.input}
+                                    placeholder={"Password"}
+                                    onChangeText={setPassword}
+                                    autoCapitalize="none"
+                                    autoCorrect={false}
+                                >
+                                </TextInput>
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <TouchableOpacity style={styles.button}>
+                                    <Text style={styles.buttonText} onPress={() => {signup({ email, password })}}>Login</Text>
+>>>>>>> Stashed changes
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.button, styles.buttonOutline]}>
                                     <Text style={[styles.buttonText, styles.buttonOutlineText]}>Register</Text>
@@ -42,8 +94,13 @@ const SigninScreen = ({ navigation }) => {
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
+<<<<<<< Updated upstream
     );
 };
+=======
+    )
+}
+>>>>>>> Stashed changes
 
 const styles = StyleSheet.create({
     imgContainer: {
@@ -70,6 +127,11 @@ const styles = StyleSheet.create({
     titleContainer: {
         padding: 20,
         marginBottom: 70,
+<<<<<<< Updated upstream
+=======
+        // borderColor: 'black',
+        // borderWidth: 10,
+>>>>>>> Stashed changes
     },
     input: {
         width: '100%',

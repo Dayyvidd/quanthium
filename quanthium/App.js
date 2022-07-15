@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React from "react";
 import {
     createAppContainer,
@@ -16,6 +17,25 @@ import RequestScreen from "./src/screens/RequestScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import YourPortfolioScreen from "./src/screens/YourPortfolioScreen";
 
+=======
+import React, { useState } from 'react';
+import {StyleSheet} from 'react-native';
+import {createAppContainer} from 'react-navigation';
+import SigninScreen from "./src/screens/SigninScreen";
+import { Provider as AuthProvider } from './src/context/AuthContext';
+
+/*
+export default function App() {
+
+
+    return (
+        <SigninScreen/>
+
+    );
+}
+
+const styles = StyleSheet.create({
+>>>>>>> Stashed changes
 
 const switchNavigator = createSwitchNavigator({
     // three main flows
@@ -35,5 +55,22 @@ const switchNavigator = createSwitchNavigator({
     }),
     transactionFlow: confirmationScreen
 });
+<<<<<<< Updated upstream
 
 export default createAppContainer(switchNavigator);
+=======
+*/
+
+
+const App = createAppContainer(<SigninScreen/>);
+
+export default () => {
+    return (
+        <AuthProvider>
+            <App/>
+        </AuthProvider>
+    );
+}
+
+
+>>>>>>> Stashed changes
