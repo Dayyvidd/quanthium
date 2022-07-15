@@ -9,7 +9,7 @@ import {
     ImageBackground, TextInput, TouchableOpacity
 } from 'react-native';
 
-const SigninScreen = () => {
+const SigninScreen = ({ navigation }) => {
 
     return (
         <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
@@ -29,7 +29,8 @@ const SigninScreen = () => {
                                            placeholder={"Password"}></TextInput>
                             </View>
                             <View style={styles.buttonContainer}>
-                                <TouchableOpacity style={styles.button}>
+                                {/*Edit this to check for user authentication*/}
+                                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('homeFlow')}>
                                     <Text style={styles.buttonText}>Login</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.button, styles.buttonOutline]}>
