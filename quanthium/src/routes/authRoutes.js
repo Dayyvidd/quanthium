@@ -43,7 +43,30 @@ router.post("/signin", async (req, res) => {
     } catch (err) {
         return res.status(422).send({ error: "Invalid email or password"});
     }
+})
 
+router.post("/lend", async (req, res) => {
+    const {amount, borrower} = req.body;
+
+    try {
+        console.log(req.body);
+        //const lender = User.findOne({originator});
+        const borrow = User.findOne({email: "test@test.com"});
+        const token = jwt.sign({userId: borrow._id}, "MY_SECRET_KEY");
+        res.send({token});
+
+        borrow.select('balance email');
+        borrow.exec(function (err, person) {
+            if (err) return console.log(err);
+            console.log("Borrower Email: " + person.email);
+            console.log("Borrower Balance: " + person.balance);
+            console.log("Amount: " + amount);
+            console.log("\n");
+            console.log("New Balance: " + (person.balance + parseInt(amount)));
+        })
+    } catch (error) {
+        console.log(error);
+    }
 
 
 })

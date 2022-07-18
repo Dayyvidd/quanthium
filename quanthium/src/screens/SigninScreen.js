@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     View,
     StyleSheet,
@@ -14,8 +13,7 @@ import {Context} from '../context/AuthContext';
 const SigninScreen = ({ navigation }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { state, signup } = useContext(Context);
-
+    const { state, signin, signup } = useContext(Context);
     return (
         <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
             <TouchableWithoutFeedback style={{flex: 1}} onPress={Keyboard.dismiss}>
@@ -49,13 +47,15 @@ const SigninScreen = ({ navigation }) => {
                                     autoCorrect={false}>
                                 </TextInput>
                             </View>
+                            { state.errorMessage ? <Text style={styles.errorMessage}>{state.errorMessage}</Text> : null }
+
                             <View style={styles.buttonContainer}>
                                 <TouchableOpacity style={styles.button}>
-                                    <Text style={styles.buttonText} onPress={() => {signup({ email, password })}}>Login</Text>
+                                    <Text style={styles.buttonText} onPress={() => {signin({ email, password })}}>Login</Text>
 
                                 </TouchableOpacity>
                                 <TouchableOpacity style={[styles.button, styles.buttonOutline]}>
-                                    <Text style={[styles.buttonText, styles.buttonOutlineText]}>Register</Text>
+                                    <Text style={[styles.buttonText, styles.buttonOutlineText]} onPress={() => {signup({email, password})}}>Register</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
@@ -131,6 +131,12 @@ const styles = StyleSheet.create({
         width: '60%',
         marginTop: 15,
     },
+    errorMessage: {
+        paddingTop: 10,
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'red'
+    }
 
 });
 

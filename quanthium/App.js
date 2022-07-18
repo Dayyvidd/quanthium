@@ -16,7 +16,7 @@ import RequestScreen from "./src/screens/RequestScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import YourPortfolioScreen from "./src/screens/YourPortfolioScreen";
 import { Provider as AuthProvider } from './src/context/AuthContext';
-
+import {setNavigator} from './src/navigationRef';
 
 const switchNavigator = createSwitchNavigator({
     // three main flows
@@ -42,7 +42,7 @@ const App = createAppContainer(switchNavigator);
 export default () => {
     return (
         <AuthProvider>
-            <App/>
+            <App ref={ (navigator) => { setNavigator(navigator) }}/>
         </AuthProvider>
     );
 }

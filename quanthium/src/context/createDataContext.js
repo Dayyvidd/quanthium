@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react';
 
 export default (reducer, actions, defaultValue) => {
-    const Context = React.createContext(defaultValue);
+    const Context = React.createContext();
 
     const Provider = ({ children }) => {
         const [state, dispatch] = useReducer(reducer, defaultValue);
@@ -10,12 +10,13 @@ export default (reducer, actions, defaultValue) => {
         for (let key in actions) {
             boundActions[key] = actions[key](dispatch);
         }
+
         return (
-            <Context.provider value={{ state, ...boundActions}}>
+            <Context.Provider value={{ state, ...boundActions }}>
                 {children}
-            </Context.provider>
-        )
+            </Context.Provider>
+        );
     };
 
-    return { Context, Provider};
+    return { Context, Provider };
 };
