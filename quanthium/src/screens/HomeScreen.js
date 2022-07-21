@@ -1,17 +1,17 @@
 import React from 'react';
 import {View, StyleSheet, Text, Dimensions, ImageBackground} from 'react-native';
-import {LineChart, PieChart, ProgressChart} from 'react-native-chart-kit';
+import {LineChart, PieChart, ProgressChart, BarChart} from 'react-native-chart-kit';
 import Card from '../../components/card';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 const savingsData = {
     labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [{
         data: [
-            312.21,
+            Math.random() * 100 + 90,
             192.23,
-            212.98,
+            Math.random() * 100 + 90,
             -30.81,
             0,
             192.98,
@@ -51,11 +51,21 @@ const transactionData = [
     },
 ];
 
+const debtData = {
+    labels: ["Malcom", "Jamie", "Michelle + Theresa"],
+    datasets: [
+        {
+            data: [59, 12, 97]
+        }
+    ]
+};
+
 const progressData = {
     labels: ["Malcom", "Jamie", "Michelle + Theresa"],
     data: [0.4, 0.8, 0.6],
 
 }
+
 
 const HomeScreen = () => {
     return(
@@ -69,8 +79,11 @@ const HomeScreen = () => {
                     <Text style = {[styles.chartTitle, styles.centerTitle]}>Updated Quanthium Score</Text>
                     <Card style = {styles.scoreContainer}>
                         <Text style = {styles.creditScore}>96.2</Text>
-                        <Text style={styles.creditUpdate}>- 2.1</Text>
-                        <Text style={{color: '#f9eae1', paddingBottom: 13, alignItems: "center"}}>[missed payment to Malcom]</Text>
+                        <View style={styles.creditUpdateBox}>
+                            <AntDesign name="arrowdown" size={24} color='#cc4322' style={{paddingTop: 3, paddingLeft: 90}}/>
+                            <Text style={styles.creditUpdate}>2.1</Text>
+                        </View>
+                        <Text style={styles.paymentStatus}>missed payment to Malcom</Text>
                     </Card>
                 </View>
 
@@ -122,25 +135,26 @@ const HomeScreen = () => {
                 <View style = {styles.chartContainer}>
                     <Text style = {styles.chartTitle}>Your Debt Portfolio</Text>
                     <Card style = {styles.chartCard}>
-                        <ProgressChart
-                            data={progressData}
+                        <BarChart
+                            data={debtData}
                             width={Dimensions.get('window').width - 40}
                             height={220}
-                            strokeWidth = {13}
-                            hideLegend = {false}
-                            radius = {20}
-                            chartConfig={{
-                                backgroundGradientFromOpacity: 0,
-                                backgroundGradientToOpacity: 0,
-                                color: (opacity = 0.1) => `rgba(157, 96, 213, ${opacity})`,
-                                labelColor: (opacity = 1) => `#f9eae1`,
-                                propsForLabels:{
-                                    fontSize: 12
-                                },
+                            yAxisSuffix="%"
+                            fromZero={true}
+                            showBarTops={true}
+                            chartConfig = {{
+                                backgroundColor: "#49357E",
+                                backgroundGradientFrom: "#49357E",
+                                backgroundGradientFromOpacity: 1,
+                                backgroundGradientTo: "#49357E",
+                                backgroundGradientToOpacity: 1,
+                                fillShadowGradient: '#9D60D5',
+                                fillShadowGradientOpacity: 0.5,
+                                color: (opacity = 1) => '#9D60D5',
                             }}
-                            style={{paddingRight: 148}}
-                            padding
+                            style={{paddingTop: 15}}
                         />
+                        <Text style={styles.paymentStatus}>Upcoming payment of $239.12 to Jamie on 07/22/2022</Text>
                     </Card>
                 </View>
             </ScrollView>
@@ -204,6 +218,7 @@ const styles = StyleSheet.create({
         fontWeight: "400",
         flex: 1,
         marginTop: 5,
+        marginBottom: -8,
     },
     scoreContainer: {
         flexDirection: "column",
@@ -222,8 +237,23 @@ const styles = StyleSheet.create({
     },
     centerTitle: {
         textAlign: "center",
+    },
+    paymentStatus: {
+        marginLeft: 7,
+        color: '#f9eae1',
+        fontFamily: 'Helvetica',
+        fontSize: 16,
+        opacity: 0.6,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: 15,
+    },
+    creditUpdateBox: {
+        flexDirection: "row",
+        alignItems: "center",
+        alignContent: "center",
+        alignSelf: "center"
     }
-
 
 });
 
