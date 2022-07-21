@@ -12,7 +12,7 @@ const Card = props =>{
 const styles = StyleSheet.create({
     card:{
         position: 'relative',
-        backgroundColor: 'rgb(163,118,210)',
+        backgroundColor: '#49357E',
         shadowColor: 'black',
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 10,
