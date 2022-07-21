@@ -17,10 +17,12 @@ import SigninScreen from "./src/screens/SigninScreen";
 import YourPortfolioScreen from "./src/screens/YourPortfolioScreen";
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import {setNavigator} from './src/navigationRef';
+import SignoutScreen from "./src/screens/SignoutScreen";
 
 const switchNavigator = createSwitchNavigator({
     // three main flows
     loginFlow: SigninScreen,
+    signoutFlow: SignoutScreen,
     mainFlow: createBottomTabNavigator({
         Profile: ProfileScreen,
         homeFlow: createStackNavigator({
