@@ -18,7 +18,6 @@ const SigninScreen = ({ navigation }) => {
         <KeyboardAvoidingView behavior="padding" style={{flex: 1}}>
             <TouchableWithoutFeedback style={{flex: 1}} onPress={Keyboard.dismiss}>
                 <View>
-
                     <ImageBackground source={require('../../assets/login-back.jpg')} style={styles.backgroundImg}>
 
                         <View style={styles.mainView}>

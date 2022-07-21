@@ -1,104 +1,164 @@
 import React from 'react';
-import { View, StyleSheet, Text, Dimensions } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import {PieChart, ProgressChart, LineChart} from 'react-native-chart-kit';
+import {View, StyleSheet, Text, Dimensions, ImageBackground} from 'react-native';
+import {LineChart, PieChart, ProgressChart, BarChart} from 'react-native-chart-kit';
 import Card from '../../components/card';
 import { ScrollView } from 'react-native-gesture-handler';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
-const expenditureData = [
+const savingsData = {
+    labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+    datasets: [{
+        data: [
+            Math.random() * 100 + 90,
+            192.23,
+            Math.random() * 100 + 90,
+            -30.81,
+            0,
+            192.98,
+            Math.random() * 100,
+        ]
+    }]
+}
+
+const transactionData = [
     {
         name: "Jerry",
-        population: 21500000,
-        color: "rgba(131, 167, 234, 1)",
-        legendFontColor: "#585858",
+        population: 45,
+        color: "#C2948A",
+        legendFontColor: '#f9eae1',
         legendFontSize: 13
     },
     {
         name: "David",
-        population: 20538000,
-        color: "#81bed3",
-        legendFontColor: "#585858",
+        population: 25,
+        color: "#7EA8BE",
+        legendFontColor: '#f9eae1',
         legendFontSize: 13
     },
     {
         name: "Sam",
-        population: 5276123,
-        color: "#dc452d",
-        legendFontColor: "#585858",
+        population: 20,
+        color: "#FFEADF",
+        legendFontColor: '#f9eae1',
         legendFontSize: 13
     },
     {
         name: "Chris",
-        population: 2899999,
-        color: "green",
-        legendFontColor: "#585858",
+        population: 15,
+        color: "#BBB193",
+        legendFontColor: '#f9eae1',
         legendFontSize: 13,
     },
-    {
-        name: "Others",
-        population: 1992000,
-        color: "rgba(0, 0, 0, .4)",
-        legendFontColor: "#585858",
-        legendFontSize: 13
-    }
 ];
 
-
+const debtData = {
+    labels: ["Malcom", "Jamie", "Michelle + Theresa"],
+    datasets: [
+        {
+            data: [59, 12, 97]
+        }
+    ]
+};
 
 const progressData = {
-    labels: ["Car", "Rent", "Paris"],
+    labels: ["Malcom", "Jamie", "Michelle + Theresa"],
     data: [0.4, 0.8, 0.6],
 
 }
 
+
 const HomeScreen = () => {
     return(
-        <LinearGradient colors = {['#49357e', '#ffffff']} style = {styles.screen}>
-            <ScrollView style = {{paddingHorizontal: 20}}>
+        <ImageBackground source={require('../../assets/background.jpg')} style={styles.backgroundImg}>
+            <View style={styles.titleContainer}>
+                <Text style={styles.title}>Quanthium</Text>
+                <Ionicons name="ios-notifications" size={26.5} color="#49357E" style={{flex:0.17, paddingTop: 5}}/>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false} style = {{paddingHorizontal: 20}}>
                 <View style = {styles.chartContainer}>
-                    <Text style = {styles.chartTitle}>Expenditures</Text>
+                    <Text style = {[styles.chartTitle, styles.centerTitle]}>Updated Quanthium Score</Text>
+                    <Card style = {styles.scoreContainer}>
+                        <Text style = {styles.creditScore}>96.2</Text>
+                        <View style={styles.creditUpdateBox}>
+                            <AntDesign name="arrowdown" size={24} color='#cc4322' style={{paddingTop: 3, paddingLeft: 90}}/>
+                            <Text style={styles.creditUpdate}>2.1</Text>
+                        </View>
+                        <Text style={styles.paymentStatus}>missed payment to Malcom</Text>
+                    </Card>
+                </View>
+
+                <View style = {styles.chartContainer}>
+                    <Text style = {styles.chartTitle}>Account Balance</Text>
+                    <Card style = {styles.chartCard}>
+                        <LineChart
+                            data = {savingsData}
+                            width = {Dimensions.get('window').width - 40}
+                            height = {250}
+                            withVerticalLines = {false}
+                            yAxisLabel = '$'
+                            bezier={true}
+                            withDots = {false}
+                            chartConfig = {{
+                                backgroundColor: "#49357E",
+                                backgroundGradientFrom: "#49357E",
+                                backgroundGradientFromOpacity: 1,
+                                backgroundGradientTo: "#49357E",
+                                backgroundGradientToOpacity: 1,
+                                fillShadowGradient: '#9D60D5',
+                                fillShadowGradientOpacity: 0.5,
+                                color: (opacity = 1) => '#9D60D5',
+                            }}
+                        />
+                    </Card>
+                </View>
+
+                <View style = {styles.chartContainer}>
+                    <Text style = {styles.chartTitle}>Your Lending Portfolio</Text>
                     <Card style = {styles.chartCard}>
                         <PieChart
-                            data={expenditureData}
+                            doughnut={true}
+                            data={transactionData}
                             width={Dimensions.get('window').width - 40}
-                            height={220}
+                            height={140}
                             chartConfig={{
-                                color: (opacity = 1) => '#d2d2d2',
+                                color: (opacity = 1) => '#f9eae1',
                             }}
                             accessor="population"
                             backgroundColor="transparent"
                             paddingLeft="10"
                             absolute = {false}
+                            style={{paddingBottom: 148}}
                         />
                     </Card>
                 </View>
+
                 <View style = {styles.chartContainer}>
-                    <Text style = {styles.chartTitle}>Goals</Text>
+                    <Text style = {styles.chartTitle}>Your Debt Portfolio</Text>
                     <Card style = {styles.chartCard}>
-                        <ProgressChart
-                            data={progressData}
+                        <BarChart
+                            data={debtData}
                             width={Dimensions.get('window').width - 40}
                             height={220}
-                            strokeWidth = {13}
-                            hideLegend = {false}
-                            radius = {32}
-                            chartConfig={{
-                                backgroundGradientFromOpacity: 0,
-                                backgroundGradientToOpacity: 0,
-                                color: (opacity = 0.1) => `rgba(157, 96, 213, ${opacity})`,
-                                labelColor: (opacity = 1) => `#7F7F7F`,
-
-
-                                propsForLabels:{
-                                    fontSize: 11
-                                },
+                            yAxisSuffix="%"
+                            fromZero={true}
+                            showBarTops={true}
+                            chartConfig = {{
+                                backgroundColor: "#49357E",
+                                backgroundGradientFrom: "#49357E",
+                                backgroundGradientFromOpacity: 1,
+                                backgroundGradientTo: "#49357E",
+                                backgroundGradientToOpacity: 1,
+                                fillShadowGradient: '#9D60D5',
+                                fillShadowGradientOpacity: 0.5,
+                                color: (opacity = 1) => '#9D60D5',
                             }}
+                            style={{paddingTop: 15}}
                         />
+                        <Text style={styles.paymentStatus}>Upcoming payment of $239.12 to Jamie on 07/22/2022</Text>
                     </Card>
                 </View>
             </ScrollView>
-        </LinearGradient>
+        </ImageBackground>
     )
 };
 
@@ -114,18 +174,85 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     chartContainer: {
-        marginVertical: 20,
+        marginVertical: 5,
     },
     chartTitle: {
         marginLeft: 7,
-        color: 'white',
+        color: '#49357e',
+        fontFamily: 'Helvetica',
         fontSize: 16,
-        opacity: 0.5,
-        fontWeight: '600'
+        opacity: 0.6,
+        fontWeight: "bold"
     },
     chartCard: {
         marginVertical: 10,
         overflow: 'hidden'
+    },
+    backgroundImg: {
+        resizeMode: 'repeat',
+        width: '100%',
+        height: '100%',
+        opacity: 1,
+    },
+    title: {
+        width: '100%',
+        fontSize: 35,
+        fontWeight: 'bold',
+        fontFamily: 'Helvetica',
+        color: '#49357e',
+        flex: 1,
+        paddingRight: 80,
+        paddingLeft: 5,
+    },
+    titleContainer: {
+        paddingTop: 40,
+        paddingLeft: 10,
+        paddingBottom: 10,
+        flexDirection: "row",
+    },
+    creditScore: {
+        color: 'rgb(157, 96, 213)',
+        fontFamily: 'Helvetica',
+        fontSize: 60,
+        opacity: 0.85,
+        fontWeight: "400",
+        flex: 1,
+        marginTop: 5,
+        marginBottom: -8,
+    },
+    scoreContainer: {
+        flexDirection: "column",
+        marginHorizontal: 50,
+        marginVertical: 5,
+        alignItems: "center"
+    },
+    creditUpdate: {
+        flex: 1,
+        color: '#cc4322',
+        fontFamily: 'Helvetica',
+        fontSize: 28,
+        fontWeight: "500",
+        opacity: 1,
+        paddingTop: 2
+    },
+    centerTitle: {
+        textAlign: "center",
+    },
+    paymentStatus: {
+        marginLeft: 7,
+        color: '#f9eae1',
+        fontFamily: 'Helvetica',
+        fontSize: 16,
+        opacity: 0.6,
+        fontWeight: "bold",
+        textAlign: "center",
+        marginBottom: 15,
+    },
+    creditUpdateBox: {
+        flexDirection: "row",
+        alignItems: "center",
+        alignContent: "center",
+        alignSelf: "center"
     }
 
 });

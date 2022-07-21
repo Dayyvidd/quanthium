@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import createDataContext from './createDataContext';
 import trackerApi from '../api/tracker';
 import { navigate } from "../navigationRef";
-import { AsyncStorage } from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+let currentUser;
+
 
 const authReducer = (state, action) => {
     switch (action.type) {
@@ -10,17 +14,18 @@ const authReducer = (state, action) => {
         case 'signup':
             return { errorMessage: '', token: action.payload};
         case 'signin':
-            return { errorMessage: '', token: action.payload};
+            return { ...state, attr: action.payload};
         default:
             return state;
     }
 };
 
 const signup = dispatch => {
-    return async ({ email, password }) => {
+    return async ({ email, password }) => { 
         try {
             const response = await trackerApi.post('/signup', { email, password });
             await AsyncStorage.setItem('token', response.data.token);
+
             dispatch({type: 'signup', payload: response.data.token});
             console.log(response.data);
         } catch (err) {
@@ -35,26 +40,28 @@ const signin = dispatch => async ({ email, password }) => {
         const response = await trackerApi.post('/signin', { email, password });
         console.log(response.data);
         console.log("SIGNED IN");
+        currentUser = email;
 
-        navigate('Profile');
+
+        navigate('mainFlow');
+
+        dispatch({type: 'signin', payload: {token: response.data.token, email: response.data.email, balance: response.data.balance}});
     } catch (err) {
         console.log(err.response.data);
     }
+
 };
-    // Handle success by updating state
-    // Handle failure by showing error message (somehow)
 
 
 const signout = dispatch => {
-    return () => {
-        // somehow sign out!!!
-    };
+
 };
 
-const lend = dispatch => async ({ amount, borrower }) => {
+const lend = dispatch => async ({ amount, borrower}) => {
     try {
+
         console.log("AMOUNT PASSED IN: " + amount);
-        const response = await trackerApi.post('/lend', { amount, borrower });
+        const response = await trackerApi.post('/lend', { amount, borrower, currentUser});
         console.log(response.data);
         console.log("LEND SUCCESSFUL");
 
@@ -64,8 +71,10 @@ const lend = dispatch => async ({ amount, borrower }) => {
     }
 };
 
+
 export const { Provider, Context } = createDataContext(
     authReducer,
-    { signin, signout, signup, lend },
-    { token: null, errorMessage: '' }
+    { signin, signout, signup, lend},
+    { token: null, errorMessage: '', email: '' }
 );
+
