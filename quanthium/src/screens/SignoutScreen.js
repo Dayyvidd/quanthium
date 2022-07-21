@@ -7,9 +7,17 @@ const SignoutScreen = ({ navigation }) => {
     const {state, signout} = useContext(Context);
     return (
         <LinearGradient colors = {['#49357e', '#ffffff']} style = {styles.main}>
-        <View >
-            <Text style={styles.title}> Quanthium </Text>
-            <Text style={styles.text}>Signed Out!</Text>
+        <View style={styles.mainView}>
+            <View style={styles.titleContainer}>
+                <Text style={styles.title}>Quanthium</Text>
+            </View>
+            <View>
+                <Text style={{width: '100%',
+                    fontSize: 30,
+                    fontWeight: 'bold',
+                    fontFamily: 'Helvetica',
+                    color: 'rgba(73,53,126,0.63)'}}>You have Signed Out!</Text>
+            </View>
             <TouchableOpacity style={styles.appButtonContainers}>
                 <Text style={styles.appButtonText} onPress={() => navigation.navigate('loginFlow')}>Back to Login</Text>
             </TouchableOpacity>
@@ -19,19 +27,26 @@ const SignoutScreen = ({ navigation }) => {
     )
 };
 
-//<Button title='Back to Login' onPress={() => navigation.navigate('loginFlow')} style={styles.buttonText} ></Button>
-
 const styles = StyleSheet.create({
     main: {
         flex: 1,
     },
-    title: {
+    mainView: {
+        flex: 1,
+        alignItems: 'center',
         justifyContent: 'center',
-        textAlign: "center",
-        fontSize: 48,
-        fontFamily: 'Helvetica',
+    },
+    titleContainer: {
+        padding: 20,
+        marginBottom: 20,
+    },
+    title: {
+        width: '100%',
+        fontSize: 55,
         fontWeight: 'bold',
-        marginTop: 100,
+        fontFamily: 'Helvetica',
+        color: '#49357e',
+        paddingTop: 80
     },
     text: {
         marginBottom:25,
@@ -47,25 +62,18 @@ const styles = StyleSheet.create({
         height: 100,
         alignSelf: 'center',
     },
-    appButtonContainer: {
-        elevation: 8,
-        backgroundColor: "purple",
-        borderRadius: 20,
-        paddingVertical: 40,
-        paddingHorizontal: 10,
-        marginTop: 50,
-    },
     appButtonContainers: {
         elevation: 8,
-        backgroundColor: "purple",
+        backgroundColor: '#49357e',
         borderRadius: 20,
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        marginTop: 150,
+        paddingVertical: 12,
+        paddingHorizontal: 18,
+        marginTop: 250,
     },
     appButtonText: {
         fontSize: 18,
-        color: "#fff",
+        color: '#f9eae1',
+        fontFamily: 'Helvetica',
         fontWeight: "bold",
         alignSelf: "center",
         textTransform: "uppercase"

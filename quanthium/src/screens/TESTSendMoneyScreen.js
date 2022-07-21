@@ -1,8 +1,20 @@
 import React, {useContext, useState} from 'react'
-import {View, StyleSheet, Text, FlatList, Image, ScrollView, TextInput, Button} from 'react-native';
+import {
+    View,
+    StyleSheet,
+    Text,
+    ScrollView,
+    TextInput,
+    Button,
+    ImageBackground,
+    TouchableOpacity,
+    Image
+} from 'react-native';
 import HistoryCard from '../../components/HistoryCard';
-import {Provider, Context} from "../context/AuthContext";
+import {Context} from "../context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
 
 const SendMoneyScreen = props => {
     //const [currUser, setCurrUser] = useState("");
@@ -11,6 +23,8 @@ const SendMoneyScreen = props => {
     const [money, setMoney] = useState("");
     const [cards, setCards] = useState([]);
     const {state, lend} = useContext(Context);
+    const [text, setText] = useState("");
+    const onChange = (textValue) => setText(textValue);
 
     let today = new Date().toLocaleTimeString();
 
@@ -55,7 +69,7 @@ const SendMoneyScreen = props => {
     const [currBalance, setCurrBalance] = useState(balance);
 
     return(
-        <ScrollView style = {{flex: 1}}>
+        <ImageBackground source={require('../../assets/background.jpg')} style={styles.backgroundImg}>
             <View style = {styles.balanceContainer}>
                 <Text style = {styles.availableText}>Available</Text>
                 <Text style = {styles.balanceText}>
@@ -65,22 +79,34 @@ const SendMoneyScreen = props => {
             <View style = {styles.inputContainer}>
                 <TextInput style={styles.input} placeholder={"Send To"} value={email} onChangeText={(text) => setEmail(text)} autoCapitalize={"none"}></TextInput>
                 <TextInput style={styles.input} placeholder={"Enter amount"} value={money} onChangeText={(dollars) => setMoney(dollars)} keyboardType="number-pad"></TextInput>
+                <TextInput style={styles.input} onChangeText={onChange}
+                           value={text} placeholder={"Payback date [mm/dd/yyyy]"} autoCapitalize={"none"}></TextInput>
             </View>
-            <Button title='Submit' onPress={() => {lend({ amount: money, borrower: email }); setCurrBalance(currBalance - money); handleAddCard();}}/>
-            <Button title='Retrieve' onPress={() => {getItem()}}/>
-            <View style = {styles.contactSection}>
 
-                <View >
-                    {
-                        cards.map((item, index) => {
-                            //console.log("---" + item.money);
-                            return <HistoryCard email={item.email} money={item.money} time={item.time} key={index}/>
-                        })
-                    }
+            <View style={styles.buttonBox}>
+                <TouchableOpacity onPress={() => {lend({ amount: money, borrower: email }); setCurrBalance(currBalance - money); handleAddCard(); setText("");}}>
+                    <Image source={require('../../assets/submit-button.png')}/>
+                </TouchableOpacity>
+                <TouchableOpacity oonPress={() => {getItem()}}>
+                    <Image source={require('../../assets/retreive-button.png')}/>
+                </TouchableOpacity>
+            </View>
 
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style = {styles.contactSection}>
+
+                    <View >
+                        {
+                            cards.map((item, index) => {
+                                //console.log("---" + item.money);
+                                return <HistoryCard email={item.email} money={item.money} time={item.time} key={index}/>
+                            })
+                        }
+
+                    </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </ImageBackground>
     )
 }
 
@@ -101,14 +127,16 @@ const styles = StyleSheet.create({
     availableText: {
         color: 'white',
         opacity: 0.5,
-        fontSize: 15,
+        fontSize: 25,
+        paddingBottom: 10,
+        fontWeight: "500"
     },
     balanceText: {
-        color: 'black',
-        fontWeight: '500',
+        color: "#49357E",
+        fontWeight: "bold",
         opacity: 0.85,
         marginVertical: 7,
-        fontSize: 45
+        fontSize: 45,
     },
     contactSection:{
         paddingHorizontal: 20,
@@ -128,6 +156,18 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         marginTop: 10,
     },
+    backgroundImg: {
+        resizeMode: 'repeat',
+        width: '100%',
+        height: '100%',
+        opacity: 1,
+    },
+    buttonBox: {
+        alignItems: "center",
+        paddingTop: 4
+    }
+
+
 })
 
 export default SendMoneyScreen;

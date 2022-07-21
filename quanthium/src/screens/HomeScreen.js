@@ -9,13 +9,13 @@ const savingsData = {
     labels: ["Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [{
         data: [
-            Math.random() * 100 + 90,
-            192.23,
-            Math.random() * 100 + 90,
-            -30.81,
-            0,
-            192.98,
-            Math.random() * 100,
+            Math.random() * 100 + 300,
+            592.23,
+            Math.random() * 100 + 200,
+            -3.81,
+            500,
+            392.98,
+            Math.random() * 100 + 900,
         ]
     }]
 }
@@ -83,7 +83,7 @@ const HomeScreen = () => {
                             <AntDesign name="arrowdown" size={24} color='#cc4322' style={{paddingTop: 3, paddingLeft: 90}}/>
                             <Text style={styles.creditUpdate}>2.1</Text>
                         </View>
-                        <Text style={styles.paymentStatus}>missed payment to Malcom</Text>
+                        <Text style={styles.paymentStatus}>Missed payment to Malcom</Text>
                     </Card>
                 </View>
 
@@ -108,6 +108,7 @@ const HomeScreen = () => {
                                 fillShadowGradientOpacity: 0.5,
                                 color: (opacity = 1) => '#9D60D5',
                             }}
+                            style={{paddingTop: 13}}
                         />
                     </Card>
                 </View>
@@ -243,7 +244,7 @@ const styles = StyleSheet.create({
         color: '#f9eae1',
         fontFamily: 'Helvetica',
         fontSize: 16,
-        opacity: 0.6,
+        opacity: .9,
         fontWeight: "bold",
         textAlign: "center",
         marginBottom: 15,

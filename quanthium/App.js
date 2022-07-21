@@ -3,7 +3,6 @@ import {
     createAppContainer,
     createSwitchNavigator
 } from 'react-navigation';
-import {createStackNavigator} from "react-navigation-stack";
 import {createBottomTabNavigator} from "react-navigation-tabs";
 
 import HomeScreen from "./src/screens/HomeScreen";
@@ -11,7 +10,7 @@ import ProfileScreen from "./src/screens/ProfileScreen";
 import SigninScreen from "./src/screens/SigninScreen";
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import {setNavigator} from './src/navigationRef';
-import {Ionicons} from "@expo/vector-icons";
+import {Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import SignoutScreen from "./src/screens/SignoutScreen";
 import SendMoneyScreen from "./src/screens/TESTSendMoneyScreen";
 
@@ -20,7 +19,24 @@ const switchNavigator = createSwitchNavigator({
     loginFlow: SigninScreen,
     signoutFlow: SignoutScreen,
     mainFlow: createBottomTabNavigator({
-        Profile: ProfileScreen,
+        Profile: {
+            screen: ProfileScreen,
+            navigationOptions: {
+                tabBarLabel: "Profile",
+                tabBarOptions: {
+                    activeTintColor: '#49357e',
+                },
+                tabBarIcon: (tabInfo) => {
+                    return (
+                        <Ionicons
+                            name="ios-person"
+                            size={24}
+                            color={tabInfo.focused ? '#49357e' : "#8e8e93"}
+                        />
+                    );
+                },
+            },
+        },
         homeFlow: {
             screen: HomeScreen,
             navigationOptions: {
@@ -39,11 +55,28 @@ const switchNavigator = createSwitchNavigator({
                 },
             },
         },
-        Payments: SendMoneyScreen,
+        Payments: {
+            screen: SendMoneyScreen,
+            navigationOptions: {
+                tabBarLabel: "Lend | Request",
+                tabBarOptions: {
+                    activeTintColor: '#49357e',
+                },
+                tabBarIcon: (tabInfo) => {
+                    return (
+                        <MaterialCommunityIcons
+                            name="account-cash"
+                            size={24}
+                            color={tabInfo.focused ? '#49357e' : "#8e8e93"}
+                        />
+                    );
+                },
+            },
+        },
     },
     {
-        initialRouteName: "homeFlow"
-    }),
+        initialRouteName: "homeFlow",
+    })
 });
 
 const App = createAppContainer(switchNavigator);
