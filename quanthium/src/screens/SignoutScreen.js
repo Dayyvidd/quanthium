@@ -1,17 +1,20 @@
 import React, { useState, useContext } from 'react';
 import {View, StyleSheet, Text, Button, TouchableOpacity} from 'react-native';
 import {Context} from '../context/AuthContext';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const SignoutScreen = ({ navigation }) => {
     const {state, signout} = useContext(Context);
     return (
-        <View style={styles.main}>
+        <LinearGradient colors = {['#49357e', '#ffffff']} style = {styles.main}>
+        <View >
+            <Text style={styles.title}> Quanthium </Text>
             <Text style={styles.text}>Signed Out!</Text>
-            <TouchableOpacity style={[styles.button, styles.buttonOutline]}>
-                <Text style={[styles.buttonContainer, styles.buttonText, styles.buttonOutlineText]} onPress={() => navigation.navigate('loginFlow')}>Back to Login</Text>
+            <TouchableOpacity style={styles.appButtonContainers}>
+                <Text style={styles.appButtonText} onPress={() => navigation.navigate('loginFlow')}>Back to Login</Text>
             </TouchableOpacity>
         </View>
-
+        </LinearGradient>
 
     )
 };
@@ -21,46 +24,53 @@ const SignoutScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     main: {
         flex: 1,
-        alignItems: 'center',
     },
-    text: {
-        marginTop: 100,
-        marginBottom: 100,
+    title: {
         justifyContent: 'center',
         textAlign: "center",
         fontSize: 48,
+        fontFamily: 'Helvetica',
+        fontWeight: 'bold',
+        marginTop: 100,
     },
-    button: {
-        width: '75%',
-        marginTop: 5,
-        padding: 15,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#49357e',
-        borderRadius: 10,
-    },
-    buttonOutline: {
-        backgroundColor: 'white',
-        borderColor: '#49357e',
-        borderWidth: 2,
-    },
-    buttonText: {
-        color: 'white',
-        fontWeight: '700',
-        fontSize: 16,
+    text: {
+        marginBottom:25,
         justifyContent: 'center',
         textAlign: "center",
-        padding: 10,
+        fontSize: 48,
+        fontFamily: 'Helvetica',
+        marginTop: 150,
     },
-    buttonOutlineText: {
-        color: '#49357e',
-        fontWeight: '700',
-        fontSize: 16,
+    image: {
+        marginTop: 100,
+        width: 100,
+        height: 100,
+        alignSelf: 'center',
     },
-    buttonContainer: {
-        width: '60%',
-        marginTop: 15,
+    appButtonContainer: {
+        elevation: 8,
+        backgroundColor: "purple",
+        borderRadius: 20,
+        paddingVertical: 40,
+        paddingHorizontal: 10,
+        marginTop: 50,
     },
+    appButtonContainers: {
+        elevation: 8,
+        backgroundColor: "purple",
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 10,
+        marginTop: 150,
+    },
+    appButtonText: {
+        fontSize: 18,
+        color: "#fff",
+        fontWeight: "bold",
+        alignSelf: "center",
+        textTransform: "uppercase"
+    },
+
 });
 
 export default SignoutScreen;
